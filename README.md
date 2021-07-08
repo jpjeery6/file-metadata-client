@@ -1,0 +1,1 @@
+To build this project - mvn clean compile assembly:single

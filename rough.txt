@@ -1,0 +1,46 @@
+ private List<String> getFilesInfo(String path) {
+
+        List<String> result = new ArrayList<>();
+        try {
+            // stat --printf="%n,%s,%F\n"
+            // /home/jp/CodebasesWSL20.04/aqua-test/client/test_dir/*
+            System.out.println(path);
+            // String cmd = "ls -l " + path + "/";
+            String cmd = "bash -c stat --printf=\"%n,%s,%F\" " + path + "/*";
+            System.out.println(cmd);
+            Runtime run = Runtime.getRuntime();
+            Process pr = run.exec(cmd);
+            pr.waitFor();
+            BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+            String line = "";
+            while ((line = buf.readLine()) != null) {
+                // System.out.println(line);
+                result.add(line);
+
+            }
+            System.out.println(result.toString());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
+    
+
+
+
+
+
+{
+	"filesCount": 3,
+	"filesInfo": [{
+		"file": "/home/jp/CodebasesWSL20.04/aqua-test/client/test_dir/file1.txt",
+		"size": 27
+	}, {
+		"file": "/home/jp/CodebasesWSL20.04/aqua-test/client/test_dir/file2.json",
+		"size": 0
+	}, {
+		"file": "/home/jp/CodebasesWSL20.04/aqua-test/client/test_dir/file3.doc",
+		"size": 149
+	}]
+}
